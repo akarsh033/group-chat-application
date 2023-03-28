@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BroadcastMessage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6.message</a> &gt; <span class="el_source">BroadcastMessage.java</span></div><h1>BroadcastMessage.java</h1><pre class="source lang-java linenums">package assignment6.message;
+import assignment6.DisplayMessage;
+import assignment6.MessageIdentifier;
+import assignment6.StringManipulation;
+import java.util.Objects;
+
+/**
+ * java class for broadcasting message
+ */
+public class BroadcastMessage {
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L14" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L15">      return true;</span>
+    }
+<span class="pc bpc" id="L17" title="1 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L18">      return false;</span>
+    }
+<span class="fc" id="L20">    BroadcastMessage that = (BroadcastMessage) o;</span>
+<span class="pc bpc" id="L21" title="3 of 4 branches missed.">    return Objects.equals(userName, that.userName) &amp;&amp; Objects.equals(content,</span>
+        that.content);
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L27">    return Objects.hash(userName, content);</span>
+  }
+
+  private String userName;
+  private String content;
+
+
+  /**
+   * message identifier
+   */
+<span class="fc" id="L37">  private final static MessageIdentifier identifier = MessageIdentifier.BROADCAST_MESSAGE;</span>
+
+  /**
+   *
+   * @param userName userName
+   * @param content message
+   */
+<span class="fc" id="L44">  public BroadcastMessage(String userName, String content) {</span>
+<span class="fc" id="L45">    this.userName = userName;</span>
+<span class="fc" id="L46">    this.content = content;</span>
+<span class="fc" id="L47">  }</span>
+
+  /**
+   *
+   * @param rawInput input
+   * @return the processed out
+   */
+  public static String displayMessage(String rawInput) {
+<span class="fc" id="L55">    StringManipulation stringManipulation = new StringManipulation();</span>
+<span class="fc" id="L56">    String delimiter = &quot; &quot;;</span>
+<span class="fc" id="L57">    String[] tokens = rawInput.split(delimiter);</span>
+<span class="fc" id="L58">    String content = stringManipulation.concatenate(tokens, 4);</span>
+<span class="fc" id="L59">    String sender= tokens[2];</span>
+<span class="fc" id="L60">    DisplayMessage display = new DisplayMessage(identifier.getCommand(), sender, content);</span>
+<span class="fc" id="L61">    return display.toString();</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L66">    String delimiter =&quot; &quot;;</span>
+<span class="fc" id="L67">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L68">    sb.append(identifier.getValue());</span>
+<span class="fc" id="L69">    sb.append(delimiter);</span>
+<span class="fc" id="L70">    sb.append(userName.length());</span>
+<span class="fc" id="L71">    sb.append(delimiter);</span>
+<span class="fc" id="L72">    sb.append(userName);</span>
+<span class="fc" id="L73">    sb.append(delimiter);</span>
+<span class="fc" id="L74">    sb.append(content.length());</span>
+<span class="fc" id="L75">    sb.append(delimiter);</span>
+<span class="fc" id="L76">    sb.append(content);</span>
+<span class="fc" id="L77">    return sb.toString();</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

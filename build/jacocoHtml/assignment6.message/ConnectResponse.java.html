@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConnectResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6.message</a> &gt; <span class="el_source">ConnectResponse.java</span></div><h1>ConnectResponse.java</h1><pre class="source lang-java linenums">package assignment6.message;
+import assignment6.DisplayMessage;
+import assignment6.MessageIdentifier;
+import assignment6.StringManipulation;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import org.apache.commons.lang3.ArrayUtils;
+
+/**
+ * connect response
+ */
+public class ConnectResponse {
+
+
+
+<span class="fc" id="L17">  private static String splitBy = &quot; &quot;;</span>
+  /**
+   * identifier
+   */
+<span class="fc" id="L21">  private static MessageIdentifier identifier = MessageIdentifier.CONNECT_RESPONSE;</span>
+
+<span class="fc" id="L23">  private static String sender = &quot;SERVER&quot;;</span>
+
+  private boolean success;
+
+  private String message;
+
+  /**
+   * constructor
+   * @param success success
+   * @param message message
+   */
+<span class="fc" id="L34">  public ConnectResponse(boolean success, String message) {</span>
+<span class="fc" id="L35">    this.success = success;</span>
+<span class="fc" id="L36">    this.message = message;</span>
+<span class="fc" id="L37">  }</span>
+
+  /**
+   * method to display
+   * @param rawInput in
+   * @return the message to be displayed
+   */
+  public static String displayMessage(String rawInput) {
+<span class="fc" id="L45">    StringManipulation stringManipulation = new StringManipulation();</span>
+
+<span class="fc" id="L47">    String[] tokens = rawInput.split(splitBy);</span>
+<span class="fc" id="L48">    String content = stringManipulation.concatenate(tokens, 3);</span>
+<span class="fc" id="L49">    DisplayMessage display = new DisplayMessage(identifier.getCommand(), sender, content);</span>
+<span class="fc" id="L50">    return display.toString();</span>
+  }
+
+  /**
+   * method to convert to bytes
+   * @return bytes converted
+   */
+
+  public byte[] toBytes() {
+<span class="fc" id="L59">    List&lt;Byte&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L60">    char space = ' ';</span>
+<span class="fc" id="L61">    result.add(Integer.valueOf(identifier.getValue()).byteValue());</span>
+<span class="fc" id="L62">    result.add((byte) space);</span>
+<span class="fc" id="L63">    result.add((byte) space);</span>
+<span class="fc" id="L64">    Byte[] resultingArray = result.toArray(new Byte[0]);</span>
+<span class="fc" id="L65">    return ArrayUtils.addAll(ArrayUtils.toPrimitive(resultingArray));</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L70">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L71">    sb.append(identifier.getValue());</span>
+<span class="fc" id="L72">    sb.append(splitBy);</span>
+<span class="fc" id="L73">    sb.append(success);</span>
+<span class="fc" id="L74">    sb.append(splitBy);</span>
+<span class="fc" id="L75">    sb.append(message.length());</span>
+<span class="fc" id="L76">    sb.append(splitBy);</span>
+<span class="fc" id="L77">    sb.append(message);</span>
+<span class="fc" id="L78">    return sb.toString();</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L84">      return true;</span>
+    }
+<span class="pc bpc" id="L86" title="1 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L87">      return false;</span>
+    }
+<span class="fc" id="L89">    ConnectResponse that = (ConnectResponse) o;</span>
+<span class="pc bpc" id="L90" title="3 of 4 branches missed.">    return success == that.success &amp;&amp; Objects.equals(message, that.message);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L95">    return Objects.hash(success, message);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

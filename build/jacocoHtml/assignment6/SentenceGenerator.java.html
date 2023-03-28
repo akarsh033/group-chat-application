@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SentenceGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6</a> &gt; <span class="el_source">SentenceGenerator.java</span></div><h1>SentenceGenerator.java</h1><pre class="source lang-java linenums">package assignment6;
+import static assignment6.Server.ZERO;
+
+import java.util.*;
+
+/**
+ * sentenceGenerator
+ *
+ */
+public class SentenceGenerator {
+
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L15" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L16">      return true;</span>
+    }
+<span class="pc bpc" id="L18" title="1 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L19">      return false;</span>
+    }
+<span class="fc" id="L21">    SentenceGenerator that = (SentenceGenerator) o;</span>
+<span class="fc" id="L22">    return Objects.equals(length, that.length);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L27">    return Objects.hash(length);</span>
+  }
+
+  private Integer length;
+
+  /**
+   * constructor
+   * @param length length
+   */
+<span class="fc" id="L36">  public SentenceGenerator(Integer length) {</span>
+<span class="fc" id="L37">    this.length = length;</span>
+<span class="fc" id="L38">  }</span>
+
+  /**
+   * sentenceGeneratorFunc
+   * @return sentence generated
+   */
+  public String generateSentence(){
+<span class="fc" id="L45">    String[] stringArray = {&quot;You look good today&quot;,&quot;You are cool&quot;,&quot;You are awesome&quot;,&quot;You are generous&quot;,&quot;You are kind&quot;,&quot;How are you so well maintained&quot;, &quot;You are brilliant&quot;, &quot;You are like a movie star&quot;};</span>
+<span class="fc" id="L46">    Random randI = new Random();</span>
+<span class="fc" id="L47">    int myRandInt = randI.nextInt(ZERO,stringArray.length);</span>
+<span class="fc" id="L48">    return stringArray[myRandInt];</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

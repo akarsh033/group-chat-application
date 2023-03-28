@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Client.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6</a> &gt; <span class="el_source">Client.java</span></div><h1>Client.java</h1><pre class="source lang-java linenums">package assignment6;
+
+import static assignment6.ClientHandler.MEMORY;
+import static assignment6.Server.ZERO;
+
+import assignment6.MessageIdentifier;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
+/**
+ * Class containing threads to carry out client side interactions
+ */
+public class Client {
+
+<span class="fc" id="L24">  private Socket socket = null;</span>
+<span class="fc" id="L25">  private OutputStream outputStream = null;</span>
+<span class="fc" id="L26">  private InputStream inputStream = null;</span>
+  private String userName;
+<span class="fc" id="L28">  private String DELIMITER=&quot; &quot;;</span>
+
+  /**
+   * Instantiates a new Client.
+   *
+   * @param hostName   the host name
+   * @param portNumber the port number
+   * @param username   the username
+   */
+// constructor to put ip address and port
+<span class="fc" id="L38">  public Client(String hostName, int portNumber, String username) {</span>
+    try {
+<span class="fc" id="L40">      socket = new Socket(hostName, portNumber);</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">      if(socket!=null) {</span>
+<span class="fc" id="L42">        inputStream = socket.getInputStream();</span>
+<span class="fc" id="L43">        outputStream = socket.getOutputStream();</span>
+        //Send username
+<span class="fc" id="L45">        outputStream.write(username.getBytes(StandardCharsets.UTF_8));</span>
+<span class="fc" id="L46">        userName = username;</span>
+<span class="fc" id="L47">        Cli.printWelcome(username);</span>
+      }
+<span class="nc" id="L49">    } catch (ConnectException | UnknownHostException u){</span>
+<span class="nc" id="L50">      System.out.println(&quot;Invalid hostname or port number&quot;);</span>
+<span class="nc" id="L51">    } catch (IOException io) {</span>
+<span class="nc" id="L52">      io.printStackTrace();</span>
+<span class="pc" id="L53">    }</span>
+<span class="fc" id="L54">  }</span>
+
+  /**
+   * Create read thread.
+   */
+  public void createReadThread() {
+<span class="fc" id="L60">    Thread readThread = new Thread(() -&gt; {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">      while (socket.isConnected()) {</span>
+        try {
+          //in case a insult sentence were too long
+<span class="fc" id="L64">          byte[] readBuffer = new byte[MEMORY];</span>
+<span class="fc" id="L65">          int num = inputStream.read(readBuffer);</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">          if (num &gt; 0) {</span>
+<span class="fc" id="L67">            byte[] arrayBytes = new byte[num];</span>
+<span class="fc" id="L68">            System.arraycopy(readBuffer, ZERO, arrayBytes, ZERO, num);</span>
+<span class="fc" id="L69">            String received = new String(arrayBytes, StandardCharsets.UTF_8);</span>
+            //get responseCode
+<span class="fc" id="L71">            String responseCode = received.split(DELIMITER)[ZERO];</span>
+            //output messages on screen
+<span class="nc" id="L73">            System.out.println(Cli.parseResponse(received));</span>
+            //if is disconnect response, stop the program
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if(responseCode.equals(MessageIdentifier.DISCONNECT_RESPONSE.getValue())){</span>
+<span class="nc" id="L76">              this.outputStream.close();</span>
+<span class="nc" id="L77">              this.inputStream.close();</span>
+<span class="nc" id="L78">              this.socket.close();</span>
+            }
+            //if is connect response, and status is false, stop the program
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if(responseCode.equals(MessageIdentifier.CONNECT_RESPONSE.getValue())){</span>
+<span class="nc" id="L82">              boolean status=Boolean.parseBoolean(received.split(DELIMITER)[1]) ;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">              if(!status){</span>
+<span class="nc" id="L84">                this.outputStream.close();</span>
+<span class="nc" id="L85">                this.inputStream.close();</span>
+<span class="nc" id="L86">                this.socket.close();</span>
+              }
+            }
+          }
+<span class="nc" id="L90">        } catch (SocketException se) {</span>
+<span class="nc" id="L91">          System.exit(ZERO);</span>
+
+<span class="nc" id="L93">        } catch (IOException i) {</span>
+<span class="nc" id="L94">          i.printStackTrace();</span>
+<span class="nc" id="L95">        }</span>
+      }
+<span class="nc" id="L97">    });</span>
+<span class="fc" id="L98">    readThread.start();</span>
+<span class="fc" id="L99">  }</span>
+
+  /**
+   * Create write thread.
+   */
+  public void createWriteThread() {
+<span class="fc" id="L105">    Thread writeThread = new Thread(() -&gt; {</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">      while (socket.isConnected()) {</span>
+        try {
+<span class="fc" id="L108">          BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));</span>
+<span class="fc" id="L109">          String userMessage = inputReader.readLine();</span>
+<span class="pc bpc" id="L110" title="5 of 6 branches missed.">          if (userMessage != null &amp;&amp; userMessage.length() == 1 &amp;&amp; userMessage.equals(&quot;?&quot;)) {</span>
+<span class="nc" id="L111">            Cli.displayCommandLineOptions();</span>
+<span class="pc bpc" id="L112" title="3 of 4 branches missed.">          } else if (userMessage != null &amp;&amp; userMessage.length() &gt; ZERO) {</span>
+<span class="nc" id="L113">            synchronized (socket) {</span>
+<span class="nc" id="L114">              String protocolString = Cli.parseUserInput(userName, userMessage);</span>
+<span class="nc" id="L115">              outputStream.write(protocolString.getBytes(StandardCharsets.UTF_8));</span>
+<span class="nc" id="L116">            }</span>
+          }
+<span class="nc" id="L118">        } catch (UnknownMessageFormat m) {</span>
+<span class="nc" id="L119">          System.out.println(m.getMessage());</span>
+<span class="nc" id="L120">        } catch (IOException i) {</span>
+<span class="nc" id="L121">          i.printStackTrace();</span>
+<span class="pc" id="L122">        }</span>
+      }
+<span class="nc" id="L124">    });</span>
+<span class="fc" id="L125">    writeThread.start();</span>
+<span class="fc" id="L126">  }</span>
+
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   * @throws IOException the io exception
+   */
+  public static void main(String[] args) throws IOException {
+<span class="nc" id="L135">    BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));</span>
+<span class="nc" id="L136">    Client client = getConnectInfoFromUser(inputReader);</span>
+<span class="nc bnc" id="L137" title="All 4 branches missed.">    if(client!=null &amp;&amp; client.socket!=null) {</span>
+<span class="nc" id="L138">      client.createReadThread();</span>
+<span class="nc" id="L139">      client.createWriteThread();</span>
+    }
+<span class="nc" id="L141">  }</span>
+
+  private static Client getConnectInfoFromUser(BufferedReader input) throws IOException {
+<span class="nc" id="L144">    System.out.println(&quot;Enter hostname:&quot;);</span>
+    //String hostname = &quot;127.0.0.1&quot;;
+<span class="nc" id="L146">    String hostname = input.readLine();</span>
+<span class="nc" id="L147">    System.out.println(&quot;Enter port:&quot;);</span>
+   // String portNumber = &quot;5000&quot;;
+<span class="nc" id="L149">    String portNumber = input.readLine();</span>
+<span class="nc" id="L150">    System.out.println(&quot;Enter username:&quot;);</span>
+<span class="nc" id="L151">    String username = input.readLine();</span>
+<span class="nc" id="L152">    return new Client(hostname, Integer.parseInt(portNumber), username);</span>
+  }
+
+
+  /**
+   * Getter for input stream used by client
+   * @return Input Stream
+   */
+  public InputStream getInputStream() {
+<span class="fc" id="L161">    return inputStream;</span>
+  }
+
+  /**
+   * Getter for output stream
+   * @return Output stream
+   */
+public OutputStream getOutputStream() {
+<span class="fc" id="L169">    return outputStream;</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L174" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L175">      return true;</span>
+    }
+<span class="pc bpc" id="L177" title="2 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L178">      return false;</span>
+    }
+<span class="fc" id="L180">    Client client = (Client) o;</span>
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">    return Objects.equals(socket, client.socket) &amp;&amp;</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        Objects.equals(outputStream, client.outputStream) &amp;&amp;</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        Objects.equals(inputStream, client.inputStream) &amp;&amp;</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        Objects.equals(userName, client.userName) &amp;&amp;</span>
+<span class="pc bnc" id="L185" title="All 2 branches missed.">        Objects.equals(DELIMITER, client.DELIMITER);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L190">    return Objects.hash(socket, outputStream, inputStream, userName, DELIMITER);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

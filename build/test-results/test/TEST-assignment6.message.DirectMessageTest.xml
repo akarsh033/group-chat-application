@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="assignment6.message.DirectMessageTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.008">
+  <properties/>
+  <testcase name="displayMessage()" classname="assignment6.message.DirectMessageTest" time="0.002"/>
+  <testcase name="toBytes()" classname="assignment6.message.DirectMessageTest" time="0.001"/>
+  <testcase name="testToString()" classname="assignment6.message.DirectMessageTest" time="0.001"/>
+  <testcase name="testHashCode()" classname="assignment6.message.DirectMessageTest" time="0.001"/>
+  <testcase name="testEquals()" classname="assignment6.message.DirectMessageTest" time="0.0"/>
+  <system-out><![CDATA[ (login) Pranay->Akarsh: Do Assignment
+[B@779de014
+19 6 Pranay 6 Akarsh 13 Do Assignment
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

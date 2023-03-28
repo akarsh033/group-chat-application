@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ClientTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.031">
+  <properties/>
+  <testcase name="createWriteThread()" classname="ClientTest" time="0.014"/>
+  <testcase name="testEquals()" classname="ClientTest" time="0.008"/>
+  <testcase name="createReadThread()" classname="ClientTest" time="0.007"/>
+  <system-out><![CDATA[Hi, shukla
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

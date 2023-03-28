@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MessageIdentifier.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6.message</a> &gt; <span class="el_source">MessageIdentifier.java</span></div><h1>MessageIdentifier.java</h1><pre class="source lang-java linenums">package assignment6.message;
+
+<span class="fc" id="L3">public enum MessageIdentifier {</span>
+
+<span class="fc" id="L5">  CONNECT_MESSAGE(&quot;19&quot;, &quot;login&quot;),</span>
+
+<span class="fc" id="L7">  CONNECT_RESPONSE(&quot;20&quot;, &quot;ClientHandler&quot;),</span>
+
+<span class="fc" id="L9">  DISCONNECT_MESSAGE(&quot;21&quot;, &quot;logoff&quot;),</span>
+
+<span class="fc" id="L11">  QUERY_CONNECTED_USERS(&quot;22&quot;, &quot;who&quot;),</span>
+
+<span class="fc" id="L13">  QUERY_USER_RESPONSE(&quot;23&quot;, &quot;ClientHandler&quot;),</span>
+
+<span class="fc" id="L15">  BROADCAST_MESSAGE(&quot;24&quot;, &quot;@all&quot;),</span>
+
+<span class="fc" id="L17">  DIRECT_MESSAGE(&quot;25&quot;, &quot;@user&quot;),</span>
+
+<span class="fc" id="L19">  FAILED_MESSAGE(&quot;26&quot;, &quot;ClientHandler&quot;),</span>
+
+<span class="fc" id="L21">  SEND_INSULT(&quot;27&quot;, &quot;!user&quot;),</span>
+
+<span class="fc" id="L23">  DISCONNECT_RESPONSE(&quot;28&quot;, &quot;ClientHandler&quot;);</span>
+  private String value;
+  private String command;
+
+<span class="nc" id="L27">  MessageIdentifier(String value) {</span>
+<span class="nc" id="L28">    this.value = value;</span>
+<span class="nc" id="L29">  }</span>
+
+<span class="fc" id="L31">  MessageIdentifier(String value, String command) {</span>
+<span class="fc" id="L32">    this.value = value;</span>
+<span class="fc" id="L33">    this.command = command;</span>
+<span class="fc" id="L34">  }</span>
+  public String getValue() {
+<span class="fc" id="L36">    return this.value;</span>
+  }
+
+  public String getCommand() {
+<span class="nc" id="L40">    return command;</span>
+  }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

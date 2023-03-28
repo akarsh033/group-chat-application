@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="assignment6.message.QueryMessageTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.007">
+  <properties/>
+  <testcase name="displayMessage()" classname="assignment6.message.QueryMessageTest" time="0.001"/>
+  <testcase name="toBytes()" classname="assignment6.message.QueryMessageTest" time="0.0"/>
+  <testcase name="testToString()" classname="assignment6.message.QueryMessageTest" time="0.001"/>
+  <testcase name="testHashCode()" classname="assignment6.message.QueryMessageTest" time="0.0"/>
+  <testcase name="testEquals()" classname="assignment6.message.QueryMessageTest" time="0.001"/>
+  <system-out><![CDATA[Error
+[B@6999cd39
+22 6 Pranay
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

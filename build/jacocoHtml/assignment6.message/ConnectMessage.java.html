@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConnectMessage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6.message</a> &gt; <span class="el_source">ConnectMessage.java</span></div><h1>ConnectMessage.java</h1><pre class="source lang-java linenums">package assignment6.message;
+
+import assignment6.MessageIdentifier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import org.apache.commons.lang3.ArrayUtils;
+
+/**
+ * java class for connect message
+ */
+public class ConnectMessage {
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L16" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L17">      return true;</span>
+    }
+<span class="pc bpc" id="L19" title="1 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L20">      return false;</span>
+    }
+<span class="fc" id="L22">    ConnectMessage that = (ConnectMessage) o;</span>
+<span class="fc" id="L23">    return Objects.equals(userName, that.userName);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L28">    return Objects.hash(userName);</span>
+  }
+
+  private String userName;
+  /**
+   * identifier
+   */
+<span class="fc" id="L35">  private final static MessageIdentifier identifier=MessageIdentifier.CONNECT_MESSAGE;</span>
+
+  /**
+   *  the constructor
+   * @param userName userName
+   */
+<span class="fc" id="L41">  public ConnectMessage(String userName) {</span>
+<span class="fc" id="L42">    this.userName = userName;</span>
+<span class="fc" id="L43">  }</span>
+
+  /**
+   * method to convert to bytes
+   * @return bytes converted out
+   */
+  public byte[] toBytes() {
+<span class="fc" id="L50">    List&lt;Byte&gt; res=new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L51">    char space=' ';</span>
+<span class="fc" id="L52">    Integer length=userName.getBytes().length;</span>
+<span class="fc" id="L53">    res.add(Integer.valueOf(identifier.getValue()).byteValue());</span>
+<span class="fc" id="L54">    res.add((byte)space);</span>
+<span class="fc" id="L55">    res.add(length.byteValue());</span>
+<span class="fc" id="L56">    res.add((byte)space);</span>
+<span class="fc" id="L57">    Byte[]resArr=res.toArray(new Byte[0]);</span>
+<span class="fc" id="L58">    return ArrayUtils.addAll(ArrayUtils.toPrimitive(resArr),userName.getBytes());</span>
+  }
+
+
+
+  @Override
+  public String toString() {
+<span class="fc" id="L65">    String delimiter = &quot; &quot;;</span>
+<span class="fc" id="L66">    StringBuilder sb=new StringBuilder();</span>
+<span class="fc" id="L67">    sb.append(identifier.getValue());</span>
+<span class="fc" id="L68">    sb.append(delimiter);</span>
+<span class="fc" id="L69">    sb.append(userName.length());</span>
+<span class="fc" id="L70">    sb.append(delimiter);</span>
+<span class="fc" id="L71">    sb.append(userName);</span>
+<span class="fc" id="L72">    return sb.toString();</span>
+  }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

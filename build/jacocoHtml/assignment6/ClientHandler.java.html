@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClientHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6</a> &gt; <span class="el_source">ClientHandler.java</span></div><h1>ClientHandler.java</h1><pre class="source lang-java linenums">package assignment6;
+
+import static assignment6.Server.EIGHT;
+import static assignment6.Server.FOUR;
+import static assignment6.Server.ONE;
+import static assignment6.Server.SIX;
+import static assignment6.Server.TWO;
+import static assignment6.Server.ZERO;
+
+import assignment6.message.BroadcastMessage;
+import assignment6.message.ConnectResponse;
+import assignment6.message.DirectMessage;
+import assignment6.message.DisconnectResponse;
+import assignment6.message.FailedMessage;
+import assignment6.message.QueryResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
+
+/**
+ * ClientHandler is the server that handles communication between clients
+ */
+public class ClientHandler extends Thread {
+
+  //initialize socket and input stream
+<span class="fc" id="L32">  private boolean keepRunning = true;</span>
+  private Socket socket;
+  private int counter;
+  private OutputStream serverOut;
+  private InputStream serverInput;
+  /**
+   * Max clients that can be connected to server
+   */
+<span class="fc" id="L40">  public static Integer MAX_LIMIT = 10;</span>
+
+  /**
+   * memory size of stream
+   */
+<span class="fc" id="L45">  public static Integer MEMORY=2000;</span>
+
+
+  /**
+   * Instantiates a new Client handler.
+   *
+   * @param socket       the socket
+   * @param counter      the counter
+   * @param outputStream the output stream
+   * @param inputStream  the input stream
+   */
+<span class="fc" id="L56">  public ClientHandler(Socket socket, int counter, OutputStream outputStream, InputStream inputStream) {</span>
+<span class="fc" id="L57">    this.socket = socket;</span>
+<span class="fc" id="L58">    this.counter = counter;</span>
+<span class="fc" id="L59">    this.serverOut = outputStream;</span>
+<span class="fc" id="L60">    this.serverInput = inputStream;</span>
+<span class="fc" id="L61">  }</span>
+
+  /**
+   * Function for processing read task
+   */
+  public void processRead() {
+<span class="pc bpc" id="L67" title="1 of 4 branches missed.">      while (this.socket.isConnected() &amp;&amp; keepRunning) {</span>
+        try {
+<span class="fc" id="L69">          byte[] readBuffer = new byte[MEMORY];</span>
+<span class="fc" id="L70">          int num = serverInput.read(readBuffer);</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">          if (num &gt; ZERO) {</span>
+<span class="fc" id="L72">            byte[] arrayBytes = new byte[num];</span>
+<span class="fc" id="L73">            System.arraycopy(readBuffer, ZERO, arrayBytes, ZERO, num);</span>
+<span class="fc" id="L74">            String received = new String(arrayBytes, StandardCharsets.UTF_8);</span>
+<span class="fc" id="L75">            System.out.println(received);</span>
+<span class="fc" id="L76">            String DELIMITER=&quot; &quot;;</span>
+<span class="fc" id="L77">            String[] receivedMessages = received.split(DELIMITER);</span>
+            try {
+<span class="fc" id="L79">              processConnectMessage(receivedMessages);</span>
+<span class="fc" id="L80">              processDisconnectMessage(receivedMessages);</span>
+<span class="fc" id="L81">              processBroadcastMessage(receivedMessages);</span>
+<span class="fc" id="L82">              processQueryConnectedUsers(receivedMessages);</span>
+<span class="fc" id="L83">              processDirectMessages(receivedMessages);</span>
+<span class="fc" id="L84">              processInsultMessages(receivedMessages);</span>
+<span class="nc" id="L85">            } catch (ArrayIndexOutOfBoundsException a){</span>
+<span class="nc" id="L86">              System.out.println(&quot;Less arguments specified for messages!&quot;);</span>
+<span class="nc" id="L87">            } catch (ChatRoomFullException e) {</span>
+<span class="nc" id="L88">              System.out.println(e.getMessage());</span>
+<span class="nc" id="L89">              String username = (e.getMessage().split(&quot;! &quot;)[ONE]).split(&quot; &quot;)[ZERO];</span>
+<span class="nc" id="L90">              Server.activeClients.put(username, this); // Add temporarily, will be removed as part of Disconnect</span>
+<span class="nc" id="L91">              String[] disconnectFormat = {MessageIdentifier.DISCONNECT_MESSAGE.getValue(),</span>
+<span class="nc" id="L92">                  String.valueOf(username.length()), username};</span>
+<span class="nc" id="L93">              processDisconnectMessage(disconnectFormat);</span>
+<span class="pc" id="L94">            }</span>
+<span class="fc" id="L95">          } else {</span>
+            try {
+<span class="nc" id="L97">              notify();</span>
+<span class="nc" id="L98">            } catch (IllegalMonitorStateException im) {</span>
+              //Do nothing, wait for other clients to join
+<span class="nc" id="L100">            }</span>
+          }
+<span class="nc" id="L102">        } catch (SocketException se) {</span>
+          //Client's socket is closed, thus make an exit for Client
+<span class="nc" id="L104">          System.exit(ZERO);</span>
+<span class="nc" id="L105">        } catch (IOException i) {</span>
+<span class="nc" id="L106">          i.printStackTrace();</span>
+<span class="pc" id="L107">        }</span>
+      }
+<span class="fc" id="L109">  }</span>
+
+  /**
+   * Handling to write task
+   *
+   * @param clientHandler the client handler
+   * @param content       the content
+   */
+  public void processWrite(ClientHandler clientHandler, String content) {
+<span class="pc bpc" id="L118" title="1 of 4 branches missed.">    if (clientHandler != null &amp;&amp; Server.activeClients.contains(clientHandler)) {</span>
+      try {
+<span class="fc" id="L120">        clientHandler.serverOut.write(content.getBytes(</span>
+            StandardCharsets.UTF_8));
+<span class="nc" id="L122">      } catch (IOException e) {</span>
+<span class="nc" id="L123">        e.printStackTrace();</span>
+<span class="fc" id="L124">      }</span>
+    }
+<span class="fc" id="L126">  }</span>
+
+  /**
+   * Handling the process of connecting to a server
+   * @param receivedMessages messages received
+   * @throws ArrayIndexOutOfBoundsException message invalid format
+   * @throws ChatRoomFullException when more than 10 client requests
+   */
+  public void processConnectMessage(String[] receivedMessages)
+      throws ArrayIndexOutOfBoundsException, ChatRoomFullException {
+<span class="fc" id="L136">    String messageIdentifier = receivedMessages[ZERO];</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">    if (MessageIdentifier.CONNECT_MESSAGE.getValue().equals(messageIdentifier)) {</span>
+<span class="fc" id="L138">      String username = receivedMessages[TWO];</span>
+<span class="pc bpc" id="L139" title="2 of 4 branches missed.">      if (username != null &amp;&amp; !username.isEmpty()) {</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (Server.activeClients.size() &lt; MAX_LIMIT) {</span>
+<span class="fc" id="L141">          Server.activeClients.put(username, this);</span>
+<span class="fc" id="L142">          System.out.println(&quot;Connected &quot; + username);</span>
+<span class="fc" id="L143">          String message =</span>
+<span class="fc" id="L144">              &quot;login successful. There are &quot; + Server.activeClients.size() + &quot; connected clients&quot;;</span>
+<span class="fc" id="L145">          ConnectResponse connectResponse=new ConnectResponse(true,message);</span>
+<span class="fc" id="L146">          processWrite(this, connectResponse.toString());</span>
+<span class="fc" id="L147">        } else {</span>
+<span class="nc" id="L148">          throw new ChatRoomFullException(&quot;Currently Chat Room is full! &quot;+ username +&quot; Please try later!&quot;);</span>
+        }
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if(!Server.activeClients.containsKey(username)){</span>
+<span class="nc" id="L151">         generateFailedMessage(username, &quot;Failed Message: Connect failed for user: &quot;+ username);</span>
+        }
+      }
+    }
+<span class="fc" id="L155">  }</span>
+
+  /**
+   * Method to handle disconnect message
+   * @param receivedMessages messages received
+   * @throws ArrayIndexOutOfBoundsException when message format is invalid
+   * @throws IOException when disconnecting
+   */
+public void processDisconnectMessage(String[] receivedMessages)
+    throws ArrayIndexOutOfBoundsException, IOException {
+<span class="fc" id="L165">  String messageIdentifier = receivedMessages[ZERO];</span>
+<span class="pc bpc" id="L166" title="1 of 2 branches missed.">  if(MessageIdentifier.DISCONNECT_MESSAGE.getValue().equals(messageIdentifier)) {</span>
+<span class="fc" id="L167">    String username = receivedMessages[TWO];</span>
+<span class="pc bpc" id="L168" title="2 of 4 branches missed.">    if (username != null &amp;&amp; !username.isEmpty()) {</span>
+<span class="fc" id="L169">      System.out.println(&quot;Disconnecting &quot; + username);</span>
+<span class="fc" id="L170">      DisconnectResponse disconnectResponse=new DisconnectResponse(username);</span>
+<span class="fc" id="L171">      processWrite(this, disconnectResponse.toString());</span>
+<span class="fc" id="L172">      Server.activeClients.remove(username);</span>
+<span class="fc" id="L173">      keepRunning = false;</span>
+    }
+  }
+<span class="fc" id="L176">}</span>
+
+  /**
+   * @param receivedMessages
+   * @throws ArrayIndexOutOfBoundsException
+   */
+private void processBroadcastMessage(String[] receivedMessages) throws ArrayIndexOutOfBoundsException{
+<span class="fc" id="L183">  String messageIdentifier = receivedMessages[ZERO];</span>
+<span class="pc bpc" id="L184" title="1 of 2 branches missed.">  if(MessageIdentifier.BROADCAST_MESSAGE.getValue().equals(messageIdentifier)) {</span>
+<span class="nc" id="L185">    String senderUserName = receivedMessages[TWO];</span>
+<span class="nc" id="L186">    String message = concatStringArr(receivedMessages,FOUR);</span>
+<span class="nc bnc" id="L187" title="All 6 branches missed.">    if (senderUserName != null &amp;&amp; !senderUserName.isEmpty()</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">        &amp;&amp; message != null &amp;&amp; !message.isEmpty()) {</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">      if(Server.activeClients.containsKey(senderUserName)) {</span>
+<span class="nc" id="L190">        Server.activeClients.forEach((k, v) -&gt; {</span>
+<span class="nc" id="L191">          synchronized (v.getSocket()) {</span>
+            try {
+<span class="nc" id="L193">              BroadcastMessage broadcastMessage = new BroadcastMessage(senderUserName, message);</span>
+<span class="nc" id="L194">              v.serverOut.write(broadcastMessage.toString().getBytes(StandardCharsets.UTF_8));</span>
+<span class="nc" id="L195">            } catch (IOException e) {</span>
+<span class="nc" id="L196">              e.printStackTrace();</span>
+<span class="nc" id="L197">            }</span>
+<span class="nc" id="L198">          }</span>
+<span class="nc" id="L199">        });</span>
+      } else {
+<span class="nc" id="L201">            generateFailedMessage(senderUserName, &quot;Failed Message: Invalid Sender Name&quot;);</span>
+        }
+    }
+  }
+<span class="fc" id="L205">}</span>
+
+  /**
+   * Function to
+   * @param receivedMessages array of received messages
+   * @throws ArrayIndexOutOfBoundsException
+   */
+private void processQueryConnectedUsers(String[] receivedMessages) throws ArrayIndexOutOfBoundsException {
+<span class="fc" id="L213">  String messageIdentifier = receivedMessages[ZERO];</span>
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">  if (MessageIdentifier.QUERY_CONNECTED_USERS.getValue().equals(messageIdentifier)) {</span>
+<span class="nc" id="L215">    String userRequesting = receivedMessages[TWO];</span>
+<span class="nc bnc" id="L216" title="All 4 branches missed.">    if (userRequesting != null &amp;&amp; !userRequesting.isEmpty()) {</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">      if (Server.activeClients.containsKey(userRequesting)) {</span>
+<span class="nc" id="L218">        QueryResponse queryResponse=new QueryResponse(userRequesting,Server.activeClients);</span>
+<span class="nc" id="L219">        processWrite(this, queryResponse.toString());</span>
+      }
+    }
+  }
+<span class="fc" id="L223">}</span>
+
+  /**
+   * @param receivedMessages
+   * @throws ArrayIndexOutOfBoundsException
+   */
+private void processDirectMessages(String[] receivedMessages) throws ArrayIndexOutOfBoundsException{
+<span class="fc" id="L230">  String messageIdentifier = receivedMessages[ZERO];</span>
+<span class="pc bpc" id="L231" title="1 of 2 branches missed.">  if (MessageIdentifier.DIRECT_MESSAGE.getValue().equals(messageIdentifier)) {</span>
+<span class="nc" id="L232">    String senderName = receivedMessages[TWO];</span>
+<span class="nc" id="L233">    String recipientName = receivedMessages[FOUR];</span>
+<span class="nc" id="L234">    String message = concatStringArr(receivedMessages,SIX);</span>
+<span class="nc bnc" id="L235" title="All 6 branches missed.">    if (senderName != null &amp;&amp; !senderName.isEmpty() &amp;&amp; recipientName != null</span>
+<span class="nc bnc" id="L236" title="All 6 branches missed.">        &amp;&amp; !recipientName.isEmpty() &amp;&amp; message != null &amp;&amp; !message.isEmpty()) {</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">      if (Server.activeClients.containsKey(recipientName) &amp;&amp;</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">          Server.activeClients.containsKey(senderName)) {</span>
+<span class="nc" id="L239">        Server.activeClients.forEach((k, v) -&gt; {</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">          if (k.equals(recipientName)) {</span>
+<span class="nc" id="L241">            synchronized (v.getSocket()) {</span>
+              try {
+<span class="nc" id="L243">                DirectMessage directMessage=new DirectMessage(senderName,recipientName,message);</span>
+<span class="nc" id="L244">                v.serverOut.write(directMessage.toString().getBytes(StandardCharsets.UTF_8));</span>
+<span class="nc" id="L245">              } catch (IOException e) {</span>
+<span class="nc" id="L246">                e.printStackTrace();</span>
+<span class="nc" id="L247">              }</span>
+<span class="nc" id="L248">            }</span>
+          }
+<span class="nc" id="L250">        });</span>
+      } else {
+<span class="nc bnc" id="L252" title="All 2 branches missed.">        if(!Server.activeClients.containsKey(recipientName)){</span>
+<span class="nc" id="L253">          generateFailedMessage(recipientName, &quot;Failed Message:Invalid Recipient Name&quot;);</span>
+        }
+<span class="nc bnc" id="L255" title="All 2 branches missed.">        if(!Server.activeClients.containsKey(senderName))</span>
+<span class="nc" id="L256">        generateFailedMessage(senderName, &quot;Failed Message: Invalid Sender Name&quot;);</span>
+      }
+    }
+  }
+<span class="fc" id="L260">}</span>
+
+  /**
+   * Failed to send message function
+   * @param senderName username of sender
+   * @param message
+   */
+  private void generateFailedMessage(String senderName, String message) {
+    try {
+<span class="nc" id="L269">      FailedMessage failedMessage=new FailedMessage(senderName,message);</span>
+<span class="nc" id="L270">      this.serverOut.write(failedMessage.toString().getBytes(StandardCharsets.UTF_8));</span>
+<span class="nc" id="L271">    } catch (IOException e) {</span>
+<span class="nc" id="L272">      e.printStackTrace();</span>
+<span class="nc" id="L273">    }</span>
+<span class="nc" id="L274">  }</span>
+
+  /**
+   * TO generate and broadcast insult messages
+   * @param receivedMessages array of received messages
+   * @throws ArrayIndexOutOfBoundsException
+   * @throws IOException
+   */
+  private void processInsultMessages(String[] receivedMessages)
+      throws ArrayIndexOutOfBoundsException, IOException{ //, InvalidFileFormatException, ParseException, NoCorrespondingTerminalException, InvalidCharacterException {
+<span class="fc" id="L284">    String messageIdentifier = receivedMessages[ZERO];</span>
+<span class="pc bpc" id="L285" title="1 of 2 branches missed.">    if (MessageIdentifier.SEND_INSULT.getValue().equals(messageIdentifier)) {</span>
+<span class="nc" id="L286">        String senderUserName = receivedMessages[TWO];</span>
+<span class="nc" id="L287">        String recipientName = receivedMessages[FOUR];</span>
+<span class="nc" id="L288">        File grammarFile = new File(&quot;Grammar/insult_grammar.json&quot;);</span>
+<span class="nc" id="L289">        String message = new SentenceGenerator(EIGHT).generateSentence();</span>
+<span class="nc bnc" id="L290" title="All 4 branches missed.">        if (senderUserName != null &amp;&amp; !senderUserName.isEmpty() &amp;&amp;</span>
+<span class="nc bnc" id="L291" title="All 6 branches missed.">        !recipientName.isEmpty() &amp;&amp; message != null &amp;&amp; !message.isEmpty()) {</span>
+<span class="nc" id="L292">          message=senderUserName+&quot; -&gt; &quot;+recipientName+&quot; &quot;+message;</span>
+<span class="nc" id="L293">          String finalMessage = message;</span>
+<span class="nc" id="L294">          Server.activeClients.forEach((k, v) -&gt; {</span>
+<span class="nc" id="L295">              synchronized (v.getSocket()) {</span>
+                try {
+<span class="nc" id="L297">                  BroadcastMessage broadcastMessage=new BroadcastMessage(senderUserName,</span>
+                      finalMessage);
+<span class="nc" id="L299">                  v.serverOut.write(broadcastMessage.toString().getBytes(StandardCharsets.UTF_8));</span>
+<span class="nc" id="L300">                } catch (IOException e) {</span>
+<span class="nc" id="L301">                  e.printStackTrace();</span>
+<span class="nc" id="L302">                }</span>
+<span class="nc" id="L303">              }</span>
+<span class="nc" id="L304">          });</span>
+        }
+      }
+<span class="fc" id="L307">  }</span>
+
+  @Override
+  public void run() {
+    try {
+<span class="nc bnc" id="L312" title="All 2 branches missed.">      while (keepRunning) {</span>
+<span class="nc" id="L313">        serverInput = this.socket.getInputStream();</span>
+<span class="nc" id="L314">        serverOut = this.socket.getOutputStream();</span>
+<span class="nc" id="L315">        processRead();</span>
+      }
+<span class="nc" id="L317">    } catch (IOException io) {</span>
+<span class="nc" id="L318">      io.printStackTrace();</span>
+    } finally {
+<span class="nc" id="L320">      this.stop();</span>
+    }
+<span class="nc" id="L322">  }</span>
+
+  private static String concatStringArr(String[] tokens, int start) {
+<span class="nc" id="L325">    String res = &quot;&quot;;</span>
+<span class="nc bnc" id="L326" title="All 2 branches missed.">    for (int i = start; i &lt; tokens.length; i++) {</span>
+<span class="nc bnc" id="L327" title="All 2 branches missed.">      if (i != tokens.length - ONE) {</span>
+<span class="nc" id="L328">        res += tokens[i] + &quot; &quot;;</span>
+      } else {
+<span class="nc" id="L330">        res += tokens[i];</span>
+      }
+    }
+<span class="nc" id="L333">    return res;</span>
+  }
+
+  /**
+   * Gets socket.
+   *
+   * @return the socket
+   */
+  public Socket getSocket() {
+<span class="fc" id="L342">    return socket;</span>
+  }
+
+  /**
+   * Getter for keep running
+   * @return bool keepRunning
+   */
+  public boolean isKeepRunning() {
+<span class="fc" id="L350">    return keepRunning;</span>
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L356" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L357">      return true;</span>
+    }
+<span class="pc bpc" id="L359" title="2 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="nc" id="L360">      return false;</span>
+    }
+<span class="fc" id="L362">    ClientHandler that = (ClientHandler) o;</span>
+<span class="pc bpc" id="L363" title="2 of 4 branches missed.">    return keepRunning == that.keepRunning &amp;&amp;</span>
+        counter == that.counter &amp;&amp;
+<span class="nc bnc" id="L365" title="All 2 branches missed.">        Objects.equals(socket, that.socket) &amp;&amp;</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">        Objects.equals(serverOut, that.serverOut) &amp;&amp;</span>
+<span class="pc bnc" id="L367" title="All 2 branches missed.">        Objects.equals(serverInput, that.serverInput);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L372">    return Objects.hash(keepRunning, socket, counter, serverOut, serverInput);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

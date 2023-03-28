@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FailedMessage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6.message</a> &gt; <span class="el_source">FailedMessage.java</span></div><h1>FailedMessage.java</h1><pre class="source lang-java linenums">package assignment6.message;
+import assignment6.DisplayMessage;
+import assignment6.MessageIdentifier;
+import assignment6.StringManipulation;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import org.apache.commons.lang3.ArrayUtils;
+
+
+/**
+ * java class for failed message
+ */
+public class FailedMessage {
+
+
+
+<span class="fc" id="L18">  private static String splitBy = &quot; &quot;;</span>
+
+  private String userName;
+  private String content;
+  /**
+   * message identifier
+   */
+<span class="fc" id="L25">  private static MessageIdentifier identifier = MessageIdentifier.FAILED_MESSAGE;</span>
+
+  /**
+   * the constructor
+   * @param userName userName
+   * @param content message
+   */
+<span class="fc" id="L32">  public FailedMessage(String userName, String content) {</span>
+<span class="fc" id="L33">    this.userName = userName;</span>
+<span class="fc" id="L34">    this.content = content;</span>
+<span class="fc" id="L35">  }</span>
+
+  /**
+   * method for displaying the message
+   * @param rawInput input
+   * @return message
+   */
+  public static String displayMessage(String rawInput) {
+<span class="fc" id="L43">    String[] tokens = rawInput.split(splitBy);</span>
+<span class="fc" id="L44">    String content = new StringManipulation().concatenate(tokens, 4);</span>
+<span class="fc" id="L45">    String sender= tokens[2];</span>
+<span class="fc" id="L46">    DisplayMessage display = new DisplayMessage(identifier.getCommand(), sender, content);</span>
+<span class="fc" id="L47">    return display.toString();</span>
+  }
+
+  /**
+   * method to convert to bytes format
+   * @return bytes converted out
+   */
+
+  public byte[] toBytes() {
+<span class="fc" id="L56">    List&lt;Byte&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L57">    char space = ' ';</span>
+<span class="fc" id="L58">    Integer length = userName.getBytes().length;</span>
+<span class="fc" id="L59">    result.add(Integer.valueOf(identifier.getValue()).byteValue());</span>
+<span class="fc" id="L60">    result.add((byte) space);</span>
+<span class="fc" id="L61">    result.add(length.byteValue());</span>
+<span class="fc" id="L62">    result.add((byte) space);</span>
+<span class="fc" id="L63">    Byte[] resultingArray = result.toArray(new Byte[0]);</span>
+<span class="fc" id="L64">    return ArrayUtils.addAll(ArrayUtils.toPrimitive(resultingArray), userName.getBytes());</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L69">    StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L70">    sb.append(identifier.getValue());</span>
+<span class="fc" id="L71">    sb.append(splitBy);</span>
+<span class="fc" id="L72">    sb.append(userName.length());</span>
+<span class="fc" id="L73">    sb.append(splitBy);</span>
+<span class="fc" id="L74">    sb.append(userName);</span>
+<span class="fc" id="L75">    sb.append(splitBy);</span>
+<span class="fc" id="L76">    sb.append(content.length());</span>
+<span class="fc" id="L77">    sb.append(splitBy);</span>
+<span class="fc" id="L78">    sb.append(content);</span>
+<span class="fc" id="L79">    return sb.toString();</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L84" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L85">      return true;</span>
+    }
+<span class="pc bpc" id="L87" title="1 of 4 branches missed.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L88">      return false;</span>
+    }
+<span class="fc" id="L90">    FailedMessage that = (FailedMessage) o;</span>
+<span class="pc bpc" id="L91" title="3 of 4 branches missed.">    return Objects.equals(userName, that.userName) &amp;&amp; Objects.equals(content,</span>
+        that.content);
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L97">    return Objects.hash(userName, content);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

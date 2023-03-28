@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="assignment6.SentenceGeneratorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.007">
+  <properties/>
+  <testcase name="generateSentence()" classname="assignment6.SentenceGeneratorTest" time="0.001"/>
+  <testcase name="testHashCode()" classname="assignment6.SentenceGeneratorTest" time="0.001"/>
+  <testcase name="testEquals()" classname="assignment6.SentenceGeneratorTest" time="0.002"/>
+  <system-out><![CDATA[You are generous
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

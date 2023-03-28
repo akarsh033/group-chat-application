@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="assignment6.message.ConnectResponseTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.008">
+  <properties/>
+  <testcase name="displayMessage()" classname="assignment6.message.ConnectResponseTest" time="0.001"/>
+  <testcase name="toBytes()" classname="assignment6.message.ConnectResponseTest" time="0.001"/>
+  <testcase name="testToString()" classname="assignment6.message.ConnectResponseTest" time="0.001"/>
+  <testcase name="equalsTest()" classname="assignment6.message.ConnectResponseTest" time="0.001"/>
+  <testcase name="hashcodeTest()" classname="assignment6.message.ConnectResponseTest" time="0.001"/>
+  <system-out><![CDATA[ (ClientHandler) SERVER: checkingMessage
+[B@757529a4
+20 true 15 checkingMessage
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

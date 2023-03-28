@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ClientHandlerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.091">
+  <properties/>
+  <testcase name="processWriteTest()" classname="ClientHandlerTest" time="0.036"/>
+  <testcase name="processReadTest()" classname="ClientHandlerTest" time="0.011"/>
+  <testcase name="testChatRoomFull()" classname="ClientHandlerTest" time="0.041"/>
+  <system-out><![CDATA[Hi, shukla
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+21 5 shukla
+Disconnecting shukla
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a10
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a1
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a2
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a3
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a4
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a5
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a6
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a7
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a8
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, a9
+Chat Room Command Options:
+?: show command line options
+login: CONNECT_MESSAGE to the server
+logoff: sends a DISCONNECT_MESSAGE to the server
+who: sends a QUERY_CONNECTED_USERS to the server
+@user: sends a DIRECT_MESSAGE to the specified user to the server
+@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Connected shukla
+Connected a1
+Connected a2
+Connected a3
+Connected a4
+Connected a5
+Connected a6
+Connected a7
+Connected a8
+Connected a9
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

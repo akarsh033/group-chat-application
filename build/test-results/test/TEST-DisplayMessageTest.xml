@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="DisplayMessageTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.008">
+  <properties/>
+  <testcase name="testToString()" classname="DisplayMessageTest" time="0.002"/>
+  <testcase name="testHashCode()" classname="DisplayMessageTest" time="0.001"/>
+  <testcase name="testEquals()" classname="DisplayMessageTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[	at assignment6.Cli.parseResponse(Cli.java:115)
+	at assignment6.Client.lambda$createReadThread$0(Client.java:73)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+]]></system-err>
+</testsuite>

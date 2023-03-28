@@ -1,0 +1,303 @@
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+%login: CONNECT_MESSAGE to the server
+1logoff: sends a DISCONNECT_MESSAGE to the server
+1who: sends a QUERY_CONNECTED_USERS to the server
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+	Hi, shukla
+	Chat Room Command Options:
+	?: show command line options
+	%login: CONNECT_MESSAGE to the server
+	1logoff: sends a DISCONNECT_MESSAGE to the server
+	1who: sends a QUERY_CONNECTED_USERS to the server
+	B@user: sends a DIRECT_MESSAGE to the specified user to the server
+	Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+	T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+	21 5 shukla
+	Disconnecting shukla
+
+Hi, shukla
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+	Hi, a10
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a1
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a2
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a3
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a4
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a5
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a6
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a7
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a8
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Hi, a9
+
+Chat Room Command Options:
+
+?: show command line options
+
+%login: CONNECT_MESSAGE to the server
+
+1logoff: sends a DISCONNECT_MESSAGE to the server
+
+1who: sends a QUERY_CONNECTED_USERS to the server
+
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+
+Connected shukla
+
+Connected a1
+
+Connected a2
+
+Connected a3
+
+Connected a4
+
+Connected a5
+
+Connected a6
+
+Connected a7
+
+Connected a8
+
+Connected a9
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+%login: CONNECT_MESSAGE to the server
+1logoff: sends a DISCONNECT_MESSAGE to the server
+1who: sends a QUERY_CONNECTED_USERS to the server
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+%login: CONNECT_MESSAGE to the server
+1logoff: sends a DISCONNECT_MESSAGE to the server
+1who: sends a QUERY_CONNECTED_USERS to the server
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+%login: CONNECT_MESSAGE to the server
+1logoff: sends a DISCONNECT_MESSAGE to the server
+1who: sends a QUERY_CONNECTED_USERS to the server
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+Hi, shukla
+Chat Room Command Options:
+?: show command line options
+%login: CONNECT_MESSAGE to the server
+1logoff: sends a DISCONNECT_MESSAGE to the server
+1who: sends a QUERY_CONNECTED_USERS to the server
+B@user: sends a DIRECT_MESSAGE to the specified user to the server
+Q@all: sends a BROADCAST_MESSAGE to the server, to be sent to all users connected
+T!user: sends a SEND_INSULT message to the server, to be sent to the specified user
+  1	at assignment6.Cli.parseResponse(Cli.java:115)
+  B	at assignment6.Client.lambda$createReadThread$0(Client.java:73)
+  5	at java.base/java.lang.Thread.run(Thread.java:833)
+You are generous
+Pranay Shukla I study in NEU
++ (@all) Pranay: Whatsup how are you doing
+!"19 6 Pranay
+&%* (ClientHandler) SERVER: checkingMessage
+&'[B@757529a4
+&(20 true 15 checkingMessage
+,+( (login) Pranay->Akarsh: Do Assignment
+,-[B@779de014
+,.'19 6 Pranay 6 Akarsh 13 Do Assignment
+21[B@4642b71d
+2321 6 Pranay
+76$ (ClientHandler) SERVER: signedOff
+78[B@1450078a
+7928 6 Pranay signedOff
+=< (ClientHandler) Pranay: :(
+=>[B@3eb631b8
+=?26 6 Pranay 2 :(
+CB[B@4e558728
+CD27 6 Pranay 7 Harshit
+HGError
+HI[B@6999cd39
+HJ22 6 Pranay
+NM= (ClientHandler) SERVER: There is 1 other users: test2 test
+NO[B@5bb8f9e2
+NP23 1 5 test2 4 test

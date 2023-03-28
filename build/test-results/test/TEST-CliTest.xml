@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CliTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.101">
+  <properties/>
+  <testcase name="concatStringArr()" classname="CliTest" time="0.073"/>
+  <testcase name="parseResponse()" classname="CliTest" time="0.017"/>
+  <testcase name="printWelcome()" classname="CliTest" time="0.002"/>
+  <testcase name="parseUserInput()" classname="CliTest" time="0.003"/>
+  <testcase name="displayCommandLineOptions()" classname="CliTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

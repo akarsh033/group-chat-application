@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DisplayMessage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6</a> &gt; <span class="el_source">DisplayMessage.java</span></div><h1>DisplayMessage.java</h1><pre class="source lang-java linenums">package assignment6;
+import java.util.Objects;
+
+/**
+ * The type Display message which displays the data in the required format.
+ */
+public class DisplayMessage {
+
+  /**
+   * The Type.
+   */
+  String type;
+  /**
+   * The Sender.
+   */
+  String sender;
+  /**
+   * The Content.
+   */
+  String content;
+
+  /**
+   * Instantiates a new Display message.
+   *
+   * @param type    the type of the message
+   * @param sender  the sender sending the message
+   * @param content the content which is the data to be sent
+   */
+<span class="fc" id="L29">  public DisplayMessage(String type, String sender, String content) {</span>
+<span class="fc" id="L30">    this.type = type;</span>
+<span class="fc" id="L31">    this.sender = sender;</span>
+<span class="fc" id="L32">    this.content = content;</span>
+<span class="fc" id="L33">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L37">    return &quot; (&quot;+type+&quot;) &quot;+sender+&quot;: &quot;+content;</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">    if (this == o) {</span>
+<span class="nc" id="L43">      return true;</span>
+    }
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">    if (!(o instanceof DisplayMessage)) {</span>
+<span class="nc" id="L46">      return false;</span>
+    }
+<span class="fc" id="L48">    DisplayMessage that = (DisplayMessage) o;</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">    return Objects.equals(type, that.type) &amp;&amp;</span>
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">        Objects.equals(sender, that.sender) &amp;&amp;</span>
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        Objects.equals(content, that.content);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L56">    return Objects.hash(type, sender, content);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

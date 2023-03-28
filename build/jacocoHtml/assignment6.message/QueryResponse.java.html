@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>QueryResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">assignment6</a> &gt; <a href="index.source.html" class="el_package">assignment6.message</a> &gt; <span class="el_source">QueryResponse.java</span></div><h1>QueryResponse.java</h1><pre class="source lang-java linenums">package assignment6.message;
+
+import assignment6.DisplayMessage;
+import assignment6.ClientHandler;
+import assignment6.MessageIdentifier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+import org.apache.commons.lang3.ArrayUtils;
+
+/**
+ * The type Query response.
+ */
+public class QueryResponse {
+
+
+
+
+<span class="fc" id="L20">  private final static MessageIdentifier identifier=MessageIdentifier.QUERY_USER_RESPONSE;</span>
+  private final static String SENDER=&quot;SERVER&quot;;
+  /**
+   * The constant DELIMIT.
+   */
+<span class="fc" id="L25">  public static String DELIMIT=&quot; &quot;;</span>
+  private String userName;
+  private final ConcurrentHashMap&lt;String, ClientHandler&gt; activeClients;
+
+  /**
+   * Instantiates a new Query response.
+   *
+   * @param userName      the user name
+   * @param activeClients the active clients
+   */
+<span class="fc" id="L35">  public QueryResponse(String userName ,ConcurrentHashMap&lt;String, ClientHandler&gt;activeClients) {</span>
+<span class="fc" id="L36">    this.userName = userName;</span>
+<span class="fc" id="L37">    this.activeClients=activeClients;</span>
+<span class="fc" id="L38">  }</span>
+
+  /**
+   *  method to covert to bytes
+   *  @return bytes converted out
+   */
+//  @Override
+  public byte[] toBytes() {
+<span class="fc" id="L46">    List&lt;Byte&gt;res=new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L47">    char space=' ';</span>
+<span class="fc" id="L48">    Integer length=userName.getBytes().length;</span>
+<span class="fc" id="L49">    res.add(Integer.valueOf(identifier.getValue()).byteValue());</span>
+<span class="fc" id="L50">    res.add((byte)space);</span>
+<span class="fc" id="L51">    res.add(length.byteValue());</span>
+<span class="fc" id="L52">    res.add((byte)space);</span>
+<span class="fc" id="L53">    Byte[]resArr=res.toArray(new Byte[0]);</span>
+<span class="fc" id="L54">    return ArrayUtils.addAll(ArrayUtils.toPrimitive(resArr),userName.getBytes());</span>
+  }
+
+
+  /**
+   * Display content string.
+   *
+   * @param rawInput the raw input
+   * @return the string
+   */
+  public static String displayMessage(String rawInput) {
+<span class="fc" id="L65">    String[] tokens = rawInput.split(DELIMIT);</span>
+<span class="fc" id="L66">    String content = &quot;There is &quot;+tokens[1]+&quot; other users&quot;;</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    if(!tokens[1].equals(&quot;0&quot;)) {</span>
+<span class="fc" id="L68">      content+=&quot;:&quot;;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">      for (int i = 2; i &lt; tokens.length; i += 2) {</span>
+<span class="fc" id="L70">        content += &quot; &quot; + tokens[i + 1];</span>
+      }
+    }
+<span class="fc" id="L73">    DisplayMessage display = new DisplayMessage(identifier.getCommand(), SENDER, content);</span>
+<span class="fc" id="L74">    return display.toString();</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L79">    StringBuilder sb=new StringBuilder();</span>
+<span class="fc" id="L80">    sb.append(identifier.getValue());</span>
+<span class="fc" id="L81">    synchronized (activeClients){</span>
+<span class="fc" id="L82">      int totalUsers = activeClients.size() - 1;</span>
+<span class="fc" id="L83">      sb.append(DELIMIT);</span>
+<span class="fc" id="L84">      sb.append(totalUsers);</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">      if (totalUsers &gt;= 1) {</span>
+<span class="fc" id="L86">        activeClients.forEach((k, v) -&gt; {</span>
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">          if (!k.equals(userName)) {</span>
+<span class="fc" id="L88">            sb.append(&quot; &quot;+k.length() + &quot; &quot; + k);</span>
+          }
+<span class="fc" id="L90">        });</span>
+      }
+      else
+<span class="nc" id="L93">        sb.append(&quot; 0&quot;);</span>
+<span class="fc" id="L94">    }</span>
+<span class="fc" id="L95">    return sb.toString();</span>
+  }
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L101">      return true;</span>
+    }
+<span class="fc bfc" id="L103" title="All 2 branches covered.">    if (!(o instanceof QueryResponse)) {</span>
+<span class="fc" id="L104">      return false;</span>
+    }
+<span class="fc" id="L106">    QueryResponse that = (QueryResponse) o;</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">    return Objects.equals(userName, that.userName) &amp;&amp;</span>
+<span class="pc bnc" id="L108" title="All 2 branches missed.">        Objects.equals(activeClients, that.activeClients);</span>
+  }
+
+  @Override
+  public int hashCode() {
+<span class="fc" id="L113">    return Objects.hash(userName, activeClients);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

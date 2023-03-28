@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="assignment6.message.BroadcastMessageTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-12-12T01:36:52" hostname="DESKTOP-KSL5KLB" time="0.007">
+  <properties/>
+  <testcase name="displayContent()" classname="assignment6.message.BroadcastMessageTest" time="0.001"/>
+  <testcase name="testEqual()" classname="assignment6.message.BroadcastMessageTest" time="0.001"/>
+  <testcase name="testToString()" classname="assignment6.message.BroadcastMessageTest" time="0.001"/>
+  <testcase name="hashcodeTest()" classname="assignment6.message.BroadcastMessageTest" time="0.001"/>
+  <system-out><![CDATA[ (@all) Pranay: Whatsup how are you doing
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
