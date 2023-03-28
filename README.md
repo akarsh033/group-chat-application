@@ -1,7 +1,5 @@
 # Chat Room Application
 
-Group Project by Pooja and Tao.
-
 ## Get Started:
 
 Step 1 : Start the **Server** by running the main method in **Server.java**. This is the server instance which will keep doing server.accept() to accept Clients.
