@@ -1,4 +1,6 @@
 # Chat Room Application
+![image](https://user-images.githubusercontent.com/47480242/228156321-b51fbac3-659e-44db-a2e7-46687aa01a79.png)
+
 
 ## Get Started:
 
